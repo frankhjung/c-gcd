@@ -14,19 +14,24 @@
 #.c.o:
 #	$(CC) $(CFLAGS) -o $<
 
-CFLAGS = -O -Wall -m64 -I.
+CFLAGS  = -O -Wall -m64 -I.
 LDFLAGS = -m64
-SRCS = gcd.c
-OBJS = $(SRCS:.c=.o)
-TGTS = $(patsubst %.c, %, $(SRCS))
+SRCS    = gcd.c
+OBJS    = $(SRCS:.c=.o)
+TGTS    = $(patsubst %.c, %, $(SRCS))
 
 .PHONY: all
-all: $(OBJS) $(TGTS)
+all: cleanall lint $(OBJS) $(TGTS)
 
-.PHONY: indent
-indent: $(SRCS)
+.PHONY: lint
+lint:	$(SRCS) $(SRCS:.c=.h)
+	@splint *.c *.h
 	@astyle --style=kr --suffix=~ *.c *.h
 
 .PHONY: clean
 clean:
-	@$(RM) *~ $(TGTS) $(OBJS)
+	@$(RM) *~ $(OBJS)
+
+.PHONY: cleanall
+cleanall: clean
+	@$(RM) *~ $(TGTS)

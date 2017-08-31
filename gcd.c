@@ -10,9 +10,9 @@ int main()
     int n1, n2;
     printf("Require two positive integers:\n");
     printf("Enter first positive integer ...: ");
-    scanf("%d", &n1);
+    (void) scanf("%d", &n1);
     printf("Enter second positive integer ..: ");
-    scanf("%d", &n2);
+    (void) scanf("%d", &n2);
     printf("G.C.D of %d and %d is %d.\n", n1, n2, gcd(n1,n2));
     return 0;
 }
